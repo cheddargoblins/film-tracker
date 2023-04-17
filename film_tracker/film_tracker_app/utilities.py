@@ -7,7 +7,8 @@ import json
 def sign_up(data):
     email = data['email']
     password = data['password']
-    name = data['name']
+    display_name = data['display_name']
+    dob = data['dob']
     super_user = False
     staff = False
     if 'super' in data:
@@ -15,7 +16,7 @@ def sign_up(data):
     if 'staff' in data:
         staff = data['staff']
     try:
-        new_user = App_User.objects.create_user(username = email, email = email, name = name, password = password, is_superuser = super_user, is_staff = staff)
+        new_user = App_User.objects.create_user(username = email, email = email, display_name = display_name, password = password, dob = dob, is_superuser = super_user, is_staff = staff)
         new_user.save()
         return JsonResponse({"success":True})
     except Exception as e:
@@ -25,21 +26,21 @@ def sign_up(data):
 def log_in(request):
     email = request.data['email']
     password = request.data['password']
-    print(email, password)
+    print(request._request)
     user = authenticate(username = email , password = password)
     if user is not None and user.is_active:
         try:
             login(request._request, user)
-            return JsonResponse({'email': user.email, 'name':user.name})
+            return JsonResponse({'login':True, 'email': user.email, 'display_name':user.display_name})
         except Exception as e:
             print(e)
             return JsonResponse({'login':False})
-    return JsonResponse({'login':False})
+    return JsonResponse({'login':False, 'active_status': user.is_active})
 
 
-def curr_user(request):
+def who_am_i(request):
     if request.user.is_authenticated:
-        user_info = serialize("json",  [request.user], fields = ['name', 'email'])
+        user_info = serialize("json",  [request.user], fields = ['display_name', 'email'])
         user_info_workable = json.loads(user_info)
         return JsonResponse(user_info_workable[0]['fields'])
     else:
