@@ -14,20 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.http import HttpResponse
-from django.conf import settings
-import os
-
-
-def send_the_index(request):
-    the_index = open(os.path.join(settings.BASE_DIR, 'static/index.html'))
-    return HttpResponse(the_index)
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('', send_the_index),
-    path('admin/', admin.site.urls),
-    path('user/', include('film_tracker_app.urls')),
-    path('movie/', include('movie_info_app.urls')),
+    path('<str:movie_request>/', views.movieData, name='movieData'),
+    path('search/<str:movie_title>/', views.movieSearcher, name='movieSearcher'),
 ]

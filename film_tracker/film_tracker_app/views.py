@@ -3,6 +3,15 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import logout
 from .utilities import sign_up, log_in, who_am_i
+import requests
+from dotenv import load_dotenv
+import os
+import pprint
+import json
+
+
+pp = pprint.PrettyPrinter(indent=1, depth=3)
+load_dotenv()
 
 
 @api_view(['POST', 'GET'])
@@ -21,3 +30,5 @@ def user_capabilities(request):
             return sign_up(request.data)
     elif request.method == 'GET':
         return who_am_i(request)
+
+
