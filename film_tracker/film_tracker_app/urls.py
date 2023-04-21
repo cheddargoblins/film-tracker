@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('', views.user_capabilities, name='user_capabilities'),
+    path('home/', views.get_movie_times, name='get_movie_times'),
 ]
