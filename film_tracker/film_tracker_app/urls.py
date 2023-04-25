@@ -17,7 +17,23 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+#/user/ directs here
 urlpatterns = [
     path('', views.user_capabilities, name='user_capabilities'),
     path('home/', views.get_movie_times, name='get_movie_times'),
+    
+    path('api/create_review', views.create_user_review, name='create_user_review'),
+    path('api/get_review', views.get_user_review, name='get_user_review'),
+    path('api/update_review', views.update_review, name='update_review'),
+    path('api/delete_review', views.delete_review, name='delete_review'),
+    
+    path('api/create_list', views.create_list, name='create_list'),
+    path('api/get_custom_list', views.get_custom_list, name='get_custom_list'),
+    path('api/add_list', views.add_list, name='add_list'),
+    path('api/remove_list', views.remove_list, name='remove_list'),
+    path('api/delete_list', views.delete_list, name='delete_list'),
+    
+    path('api/get_watchlist', views.get_watchlist, name='get_watchlist'),
+    path('api/add_watchlist', views.add_watchlist, name='add_watchlist'),
+    path('api/remove_watchlist', views.remove_watchlist, name='remove_watchlist'),
 ]

@@ -11,7 +11,6 @@ pp = pprint.PrettyPrinter(indent=1, depth=3)
 load_dotenv()
 
 
-#This API call will be used to populate the Movie Details Page, as seen in the Wire Frame Application
 def movieData(request, movie_request):
     #The actual movie_request will be passing along a Movie ID that it gets from either the search page or the home page.
     # The below reassignment is just used to ensure that I can access the desired API infomation.
@@ -38,7 +37,6 @@ def movieData(request, movie_request):
     # return render(request, "movie_details.html", data)
 
 
-#This API call will be used to take in user input and provide a list of similar movie titles, not on the orignal Wire Frame Application, but will be used in a new search results page.
 def movieSearcher(request, movie_title):
     endpoint = f"https://imdb-api.com/en/API/SearchMovie/{os.environ['imdb_priv_key']}/{movie_title}"
     response = requests.get(endpoint)
@@ -47,7 +45,6 @@ def movieSearcher(request, movie_title):
     # return render(request, "movie_search.html", data)
 
 
-#This API call will be used to populate the IMDB Lists on the Home page, as seen in the Wire Frame Application.
 def imdb_movie_lists(request):
     top250 = f"https://imdb-api.com/en/API/Top250Movies/{os.environ['imdb_priv_key']}"
     response = requests.get(top250)
