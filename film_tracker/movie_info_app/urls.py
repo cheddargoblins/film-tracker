@@ -17,7 +17,12 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+#/movie/ directs here
 urlpatterns = [
-    path('<str:movie_request>/', views.movieData, name='movieData'),
-    path('search/<str:movie_title>/', views.movieSearcher, name='movieSearcher'),
+    path('details/', views.movieData, name='movieData'),
+    path('search/', views.movieSearcher, name='movieSearcher'),
+    
+    path('getIMDBLists/', views.imdb_movie_lists, name='getPoster'),
+    path('getPoster/', views.getPoster, name='getPoster'),
+    path('getTimes/', views.get_movie_times, name='getPoster'),
 ]
