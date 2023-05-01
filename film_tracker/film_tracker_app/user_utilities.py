@@ -1,8 +1,9 @@
-from .models import App_User
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.core.serializers import serialize
+from .models import App_User
 import json
+
 
 def sign_up(data):
     email = data['email']
@@ -23,15 +24,16 @@ def sign_up(data):
         print(e)
         return JsonResponse({"success": False})
   
+
 def log_in(request):
     email = request.data['email']
     password = request.data['password']
-    print(request._request)
     user = authenticate(username = email , password = password)
     if user is not None and user.is_active:
         try:
             login(request._request, user)
-            return JsonResponse({'login':True, 'email': user.email, 'display_name':user.display_name})
+            data = {'login':True, 'email': user.email, 'display_name':user.display_name}
+            return JsonResponse(data)
         except Exception as e:
             print(e)
             return JsonResponse({'login':False})

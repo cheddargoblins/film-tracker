@@ -22,7 +22,8 @@ import os
 
 
 def send_the_index(request):
-    the_index = open(os.path.join(settings.BASE_DIR, 'static/index.html'))
+    path_to_index = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")), "static", "index.html")
+    the_index = open(path_to_index)
     return HttpResponse(the_index)
 
 urlpatterns = [

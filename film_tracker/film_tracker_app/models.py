@@ -13,14 +13,10 @@ class App_User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [email,display_name,dob]
   
-    # def __str__(self):
-    #     return f"{self.id}"
-  
 apps.register_model(App_User, model=AbstractUser)
 
 
 class Custom_Lists(models.Model):
-    # list_id = models.IntegerField(unique=True)
     list_name = models.CharField(max_length = 255, null = False, blank = False)
     list_of_movie_ids = ArrayField(base_field=models.TextField(null=True, blank=True), default=list, blank=True)
     user = models.ForeignKey(App_User, on_delete=models.CASCADE, related_name="lists")
